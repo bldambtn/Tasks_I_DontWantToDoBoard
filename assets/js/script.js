@@ -180,6 +180,7 @@ function handleDrop(event, ui) {
     taskList[taskIndex].status = newStatus;
     // Save the updated task list to localStorage
     localStorage.setItem("task", JSON.stringify(taskList));
+    
     renderTaskList();
   }
 }

@@ -36,15 +36,43 @@ THEN the saved tasks persist
 
 The following animation demonstrates the intended application functionality:
 
-![A user adds three tasks to the task board and changes the state of two of them to in progress and then completion. The user then deletes the two cards in the done column.](./assets/05-third-party-apis-homework-demo.gif)
+![A user adds three tasks to the task board and changes the state of two of them to in progress and then completion. The user then deletes the two cards in the done column.](./assets/demo.gif)
 
 ## Link to Deployed application
 
-* 
+* https://bldambtn.github.io/Tasks_I_DontWantToDoBoard/ 
 
 ## Credits
 
+### Collaborator(s):
+
+* Jacqlyn McQuade, https://github.com/JacqMcQ, helped with code-reivew, debugging, and assisting with JQuery - dragging, sorting.
+
+* Sherman Burwell, https://github.com/shermanburwell3/, helped with code-reivew, debugging, and assisting with JQuery - dragging, sorting.
+
 ### Research Sources:
+
+* Geeks for Geeks. (accessed June 12, 2024) How to add background color to a div in Bootstrap ? Retrieved from https://www.geeksforgeeks.org/how-to-add-background-color-to-a-div-in-bootstrap/
+
+* Bootstrap Documentation. (accessed June 14, 2024) Background. Retrieved from https://getbootstrap.com/docs/5.1/utilities/background/
+
+* Bootstrap Documentation. (accessed June 14, 2024) Colors. Retrieved from https://getbootstrap.com/docs/5.1/utilities/colors/
+
+* jQuery Interface. (accessed June 12, 2024) Draggable. Retrieved from https://jqueryui.com/draggable/#sortable
+
+* jQuery Interface. (accessed June 12, 2024) Droppable. Retrieved from https://api.jqueryui.com/droppable/#options
+
+* Mozilla. (accessed June 14, 2024). HTMLElement: drag event. Mozilla Developer Network. Retrieved from https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drag_event 
+
+* Mozilla. (accessed June 14, 2024). HTMLElement: drop event. Mozilla Developer Network. Retrieved from https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
+
+* Mozilla. (accessed June 12, 2024). Element: setAttribute() method. Mozilla Developer Network. Retrieved from https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute 
+
+* W3Schools. (accessed June 12, 2024). Bootstrap 5 Background Colors. Retrieved from https://www.w3schools.com/bootstrap5/bootstrap_colors_bg.php
+
+* W3Schools. (accessed June 15, 2024). HTML Drag and Drop API. Retrieved from https://www.w3schools.com/html/html5_draganddrop.asp
+
+* W3Schools. (accessed June 12, 2024). Style backgroundColor Property. Retrieved from https://www.w3schools.com/jsref/prop_style_backgroundcolor.asp
 
 ### Source Coude: 
 

@@ -20,19 +20,28 @@ function generateTaskId() {
 // Todo: create a function to create a task card
 function createTaskCard(task) {
   // Create the Card
-  const taskCard = $("<div>").addClass("card task-card draggable my-3").attr("data-task-id", task.id);
+  const taskCard = $("<div>")
+    .addClass("card task-card draggable my-3")
+    .attr("data-task-id", task.id);
 
   // Create the Header
-  const taskCardTitle = $("<header>").addClass("card-header h4").text(task.taskTitle);
+  const taskCardTitle = $("<header>")
+    .addClass("card-header h4")
+    .text(task.taskTitle);
 
   // Create the Body
   const taskCardBody = $("<div>").addClass("card-body");
 
   // Create the Description and Due Date
-  const taskCardDescription = $("<p>").addClass("card-text").text(task.description);
+  const taskCardDescription = $("<p>")
+    .addClass("card-text")
+    .text(task.description);
   const taskCardDueDate = $("<p>").addClass("card-text").text(task.taskDueDate);
 
-  const deleteButton = $("<button>").addClass("btn btn-danger delete").text("Delete").attr("data-task-id", task.id);
+  const deleteButton = $("<button>")
+    .addClass("btn btn-danger delete")
+    .text("Delete")
+    .attr("data-task-id", task.id);
 
   //Append the Description and Due Date to the body
   taskCardBody.append(taskCardDescription, taskCardDueDate, deleteButton);
@@ -87,7 +96,7 @@ function renderTaskList() {
 
   $(".task-card").draggable({
     opacity: 0.7,
-    revert: 'invalid',
+    revert: "invalid",
     zIndex: 100,
     helper: function (e) {
       const original = $(e.target).hasClass("ui-draggable")
@@ -98,7 +107,6 @@ function renderTaskList() {
       });
     },
   });
-
 }
 
 // Todo: create a function to handle adding a new task
@@ -147,7 +155,7 @@ function handleAddTask(event) {
   $("#datepicker").val("");
   $('input[type="taskDescription"]').val("");
 }
- 
+
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
   // Get the task ID from the delete button
@@ -186,10 +194,12 @@ $(document).ready(function () {
   // Submit event on the form
   $("#taskForm").on("submit", handleAddTask);
 
-  //date picker for add task
-  $("#datepicker").datepicker({
-    changeMonth: true,
-    changeYear: true,
+  // Date picker for adding a task
+  $(function () {
+    $("#datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
   });
 
   // Make lanes droppable
@@ -198,10 +208,6 @@ $(document).ready(function () {
     drop: handleDrop,
   });
 
-  // Delete Task
-  $("#todo-cards, #in-progress-cards, #done-cards").on(
-    "click",
-    ".delete",
-    handleDeleteTask
-  );
+  // Delete task
+  $(document).on("click", ".delete", handleDeleteTask);
 });

@@ -135,6 +135,9 @@ function handleAddTask(event) {
       taskList.push(tasks);
     }
 
+    // Save the updated task list to localStorage
+    localStorage.setItem("task", JSON.stringify(taskList));
+
     // createTaskCard(task);
     renderTaskList();
   }
@@ -148,10 +151,13 @@ function handleAddTask(event) {
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
   // Get the task ID from the delete button
-  const taskId = $(event.target).attr("id");
+  const taskId = $(event.target).attr("data-task-id");
 
   // Remove the task from taskList array
   taskList = taskList.filter((task) => task.id !== taskId);
+
+  // Save the updated task list to localStorage
+  localStorage.setItem("task", JSON.stringify(taskList));
 
   // Remove the task card from the UI
   $(event.target).closest(".card").remove();
@@ -166,38 +172,36 @@ function handleDrop(event, ui) {
   const taskIndex = taskList.findIndex((task) => task.id === taskId);
   if (taskIndex !== -1) {
     taskList[taskIndex].status = newStatus;
+    // Save the updated task list to localStorage
+    localStorage.setItem("task", JSON.stringify(taskList));
     renderTaskList();
   }
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+  // Render the task list on page load
+  renderTaskList();
+
   // Submit event on the form
   $("#taskForm").on("submit", handleAddTask);
 
   //date picker for add task
-  $(function () {
-    $("#datepicker").datepicker({
-      changeMonth: true,
-      changeYear: true,
-    });
-  });  
+  $("#datepicker").datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
 
+  // Make lanes droppable
   $("#todo-cards, #in-progress-cards, #done-cards").droppable({
-  accept: ".draggable",
-  drop: function (event, ui) {
-    const taskId = ui.draggable.attr("data-task-id");
-    const newStatus = $(this).attr("id").replace("-cards", "");
-
-    // Update the status of the task in taskList
-    const taskIndex = taskList.findIndex((task) => task.id === taskId);
-    if (taskIndex !== -1) {
-      taskList[taskIndex].status = newStatus;
-      renderTaskList();
-    }
-  }
-});
+    accept: ".draggable",
+    drop: handleDrop,
+  });
 
   // Delete Task
-  $("#todo-cards").on("click", ".delete", handleDeleteTask); //neds a more unique id instead of #todo-cards or will duplicate/add tasks over and over
+  $("#todo-cards, #in-progress-cards, #done-cards").on(
+    "click",
+    ".delete",
+    handleDeleteTask
+  );
 });

@@ -25,6 +25,45 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
+     <!-- New Code --> 
+      <!-- Modal --> 
+       <div class="modal fade" id="formModal" role="dialog"> 
+        <div class="modal-dialog"> 
+          <!-- Modal content--> 
+           <div class="modal-content bg-white"> 
+            <!-- Modal Header with X close button--> 
+             <div class="modal-header"> 
+              <h4 class="modal-title">Add Task</h4> 
+              <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#formModal"></button> 
+            </div> 
+            <!-- Modal Body --> 
+             <div class="modal-body"> 
+              <form id="taskForm"> 
+                <div class="row align-items-center"> 
+                  <div class="col-6 col-form-label"> 
+                    <label for="title">Task Title</label> 
+                    <input type="text" name="title" id="title" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
+                  </div> 
+                  <div class="col-6 col-form-label"> 
+                    <label for="taskDueDate">Task Due Date</label> 
+                    <input type="text" class="form-control ui-widget-content ui-corner-all" id="datepicker" autocomplete="off" required/> 
+                  </div> 
+                </div> 
+                <div class="row"> 
+                  <div> 
+                    <label class="col" for="taskDescription">Task Description</label> 
+                    <input type="taskDescription" name="taskDescription" id="taskDescription" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
+                  </div> 
+                </div> 
+                <div class="modal-footer"> 
+                  <button class="btn btn-success" data-bs-dismiss="modal" data-bs-target="#formModal">Add Task</button> 
+                </div> 
+              </form> 
+            </div> 
+          </div> 
+        </div> 
+      </div> 
+    </div>
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
@@ -67,7 +106,7 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 
-  <script src="./assets/js/script.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 
 </html>

@@ -94,19 +94,17 @@ function renderTaskList() {
     }
   }
 
-  $(".task-card").draggable({
-    opacity: 0.7,
-    revert: "invalid",
-    zIndex: 100,
-    helper: function (e) {
-      const original = $(e.target).hasClass("ui-draggable")
-        ? $(e.target)
-        : $(e.target).closest(".ui-draggable");
-      return original.clone().css({
-        width: original.outerWidth(),
-      });
-    },
-  });
+  $( function() {
+    $( "#sortable" ).sortable({
+      revert: true
+    });
+    $( "#draggable" ).draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: "invalid"
+    });
+    $( "ul, li" ).disableSelection();
+  } );
 }
 
 // Todo: create a function to handle adding a new task
@@ -172,7 +170,7 @@ function handleDeleteTask(event) {
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {
+function handleDrop(event, ui) {  
   const taskId = ui.draggable.attr("data-task-id");
   const newStatus = $(this).attr("id").replace("-cards", "");
 
@@ -203,9 +201,15 @@ $(document).ready(function () {
   });
 
   // Make lanes droppable
-  $("#todo-cards, #in-progress-cards, #done-cards").droppable({
-    accept: ".draggable",
-    drop: handleDrop,
+  $(function (event) {
+    $("#todo-cards, #in-progress-cards, #done-cards")
+      .sortable({
+        connectWith: "#todo-cards, #in-progress-cards, #done-cards",
+        opacity: 0.7,
+      })
+      .disableSelection();
+    console.log(event);
+    handleDrop(event);
   });
 
   // Delete task

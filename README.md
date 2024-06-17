@@ -48,6 +48,8 @@ The following animation demonstrates the intended application functionality:
 
 * Jacqlyn McQuade, https://github.com/JacqMcQ, helped with code-reivew, debugging, and assisting with JQuery - dragging, sorting.
 
+* Ken Wagner, https://github.com/horizonbound0, helped with updating card status and updating card styling upon card status update.
+
 * Sherman Burwell, https://github.com/shermanburwell3/, helped with code-reivew, debugging, and assisting with JQuery - dragging, sorting.
 
 ### Research Sources:

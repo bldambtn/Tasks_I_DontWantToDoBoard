@@ -33,7 +33,7 @@ function createTaskCard(task) {
   const taskCardDescription = $("<p>")
     .addClass("card-text")
     .text(task.description);
-  const taskCardDueDate = $("<p>").addClass("card-text").text(task.taskDueDate);
+  const taskCardDueDate = $("<p>").addClass("card-text").text(task.datepicker);
 
   const deleteButton = $("<button>")
     .addClass("btn btn-danger delete")
@@ -46,9 +46,9 @@ function createTaskCard(task) {
   //Append the body to the card
   taskCard.append(taskCardTitle, taskCardBody);
 
-  // Set the background color based on taskDueDate using Day.js
+  // Set the background color based on datepicker using Day.js
   const today = dayjs().startOf("day"); // Set time to the beginning of the day
-  const dueDate = dayjs(task.taskDueDate).startOf("day"); // Set time to the beginning of the day
+  const dueDate = dayjs(task.datepicker).startOf("day"); // Set time to the beginning of the day
 
   if (task.status !== "done") {
     if (dueDate.isBefore(today, "day")) {
@@ -109,17 +109,17 @@ function handleAddTask(event) {
   event.preventDefault();
 
   const taskTitle = document.getElementById("title").value;
-  const taskDueDate = document.getElementById("taskDueDate").value;
+  const datepicker = document.getElementById("datepicker").value;
   const description = document.getElementById("taskDescription").value;
 
-  if (taskTitle === "" || taskDueDate === "" || description === "") {
+  if (taskTitle === "" || datepicker === "" || description === "") {
     // Prevent form submission
     event.preventDefault();
   } else {
     const tasks = {
       id: generateTaskId(),
       taskTitle: taskTitle,
-      taskDueDate: taskDueDate,
+      datepicker: datepicker,
       description: description,
       status: "todo",
     };

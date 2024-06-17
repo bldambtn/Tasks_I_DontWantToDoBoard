@@ -18,7 +18,7 @@ function generateTaskId() {
 function createTaskCard(task) {
   // Create the Card
   const taskCard = $("<div>")
-    .addClass("card task-card draggable my-3")
+    .addClass("card task-card draggable my-3 ui-draggable") // Add the ui-draggable class here
     .attr("data-task-id", task.id);
 
   // Create the Header
@@ -33,7 +33,7 @@ function createTaskCard(task) {
   const taskCardDescription = $("<p>")
     .addClass("card-text")
     .text(task.description);
-  const taskCardDueDate = $("<p>").addClass("card-text").text(task.datepicker);
+  const taskCardDueDate = $("<p>").addClass("card-text").text(task.taskDueDate);
 
   const deleteButton = $("<button>")
     .addClass("btn btn-danger delete")
@@ -46,20 +46,22 @@ function createTaskCard(task) {
   //Append the body to the card
   taskCard.append(taskCardTitle, taskCardBody);
 
-  // Set the background color based on the datepicker using Day.js
+  // Set the background color based on taskDueDate using Day.js
   const today = dayjs().startOf("day"); // Set time to the beginning of the day
-  const dueDate = dayjs(task.datepicker).startOf("day"); // Set time to the beginning of the day
+  const dueDate = dayjs(task.taskDueDate).startOf("day"); // Set time to the beginning of the day
 
-  if (dueDate.isBefore(today, "day")) {
-    taskCard.addClass("bg-danger bg-gradient text-white"); // Past due tasks
-    deleteButton.addClass("btn btn-outline-light text-white");
-  } else {
-    const daysDiff = dueDate.diff(today, "day");
-
-    if (daysDiff <= 0) {
-      taskCard.addClass("bg-warning bg-gradient text-white"); // Tasks due today
+  if (task.status !== "done") {
+    if (dueDate.isBefore(today, "day")) {
+      taskCard.addClass("bg-danger bg-gradient text-white"); // Past due tasks
+      deleteButton.addClass("btn btn-outline-light text-white");
     } else {
-      taskCard.addClass("bg-light bg-gradient text-black"); // Tasks due in the future
+      const daysDiff = dueDate.diff(today, "day");
+
+      if (daysDiff === 0) {
+        taskCard.addClass("bg-warning bg-gradient text-white"); // Tasks due today
+      } else if (daysDiff > 0) {
+        taskCard.addClass("bg-light bg-gradient text-black"); // Tasks due in the future
+      }
     }
   }
 
@@ -107,33 +109,22 @@ function handleAddTask(event) {
   event.preventDefault();
 
   const taskTitle = document.getElementById("title").value;
-  const datepicker = document.getElementById("datepicker").value;
+  const taskDueDate = document.getElementById("taskDueDate").value;
   const description = document.getElementById("taskDescription").value;
 
-  if (taskTitle === "" || datepicker === "" || description === "") {
+  if (taskTitle === "" || taskDueDate === "" || description === "") {
     // Prevent form submission
     event.preventDefault();
   } else {
     const tasks = {
       id: generateTaskId(),
       taskTitle: taskTitle,
-      datepicker: datepicker,
+      taskDueDate: taskDueDate,
       description: description,
       status: "todo",
     };
 
-    // Check if the task with the same ID already exists in taskList
-    const existingTaskIndex = taskList.findIndex(
-      (task) => task.id === tasks.id
-    );
-
-    if (existingTaskIndex !== -1) {
-      // Update the existing task if found
-      taskList[existingTaskIndex] = tasks;
-    } else {
-      // Add the new task to taskList
-      taskList.push(tasks);
-    }
+    taskList.push(tasks);
 
     // Save the updated task list to localStorage
     localStorage.setItem("task", JSON.stringify(taskList));
@@ -165,7 +156,7 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-  const taskId = $(event.target).attr("data-task-id");
+  const taskId = ui.item.attr("data-task-id");
   let newStatus;
 
   // Determine the new status based on the target lane
@@ -206,14 +197,16 @@ $(document).ready(function () {
   });
 
   // Make lanes droppable
-  $(function (event) {
+  $(function () {
     $("#todo-cards, #in-progress-cards, #done-cards")
       .sortable({
         connectWith: "#todo-cards, #in-progress-cards, #done-cards",
         opacity: 0.7,
+        receive: function (event, ui) {
+          handleDrop(event, ui); // Call handleDrop function when a task is dropped
+        },
       })
       .disableSelection();
-    handleDrop(event);
   });
 
   // Delete task

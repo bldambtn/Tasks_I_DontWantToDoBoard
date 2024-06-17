@@ -70,19 +70,16 @@ function createTaskCard(task) {
 function renderTaskList() {
   const todoList = $("#todo-cards");
   todoList.empty();
-
   const inProgressList = $("#in-progress-cards");
   inProgressList.empty();
-
   const doneList = $("#done-cards");
   doneList.empty();
-
+  
   // Render a new card for each added task and put in correct lane
   for (let i = 0; i < taskList.length; i++) {
     const todo = taskList[i];
     const taskCard = createTaskCard(todo);
 
-    // Determine the lane based on the card's status
     if (todo.status === "todo") {
       $("#todo-cards").append(taskCard);
     } else if (todo.status === "in-progress") {
@@ -92,12 +89,6 @@ function renderTaskList() {
     }
   }
 
-  // Initialize sortable and draggable functionality
-  initSortableAndDraggable();
-}
-
-// Initialize sortable and draggable functionality
-function initSortableAndDraggable() {
   $(function () {
     $("#sortable").sortable({
       revert: true,
